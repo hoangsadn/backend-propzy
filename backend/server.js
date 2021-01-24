@@ -15,6 +15,9 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
+  .then(() => {
+    console.log('Connect database success')
+  })
   .catch((error) => console.log(error.reason));
 
 const app = express();
