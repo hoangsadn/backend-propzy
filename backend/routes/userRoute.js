@@ -19,7 +19,7 @@ router.get('/:email', async (req, res) => {
       turn: user.turn
     });
   } else {
-    res.status(404).send({ message: 'User Not Found' });
+    res.send({ message: 'User Not Found' });
   }
 });
 
@@ -56,7 +56,7 @@ router.post('/register', async (req, res) => {
       phone: newUser.phone,
     });
   } else {
-    res.status(401).send({ message: 'Invalid User Data.' });
+    res.send({ message: 'Invalid User Data.' });
   }
 });
 
