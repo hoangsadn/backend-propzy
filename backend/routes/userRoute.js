@@ -4,43 +4,39 @@ import { getToken, isAuth } from '../util';
 
 const router = express.Router();
 
-router.put('/:id', isAuth, async (req, res) => {
-  const userId = req.params.id;
-  const user = await User.findById(userId);
+router.get('/:email', async (req, res) => {
+  const { email = '' } = req.params;
+  const users = await User.find({ email });
+
+  const user = users[0];
+
   if (user) {
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.password = req.body.password || user.password;
-    const updatedUser = await user.save();
     res.send({
-      _id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin,
-      token: getToken(updatedUser),
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      turn: user.turn
     });
   } else {
     res.status(404).send({ message: 'User Not Found' });
   }
 });
 
-router.post('/signin', async (req, res) => {
-  const signinUser = await User.findOne({
-    email: req.body.email,
-    password: req.body.password,
-  });
-  if (signinUser) {
-    res.send({
-      _id: signinUser.id,
-      name: signinUser.name,
-      email: signinUser.email,
-      isAdmin: signinUser.isAdmin,
-      token: getToken(signinUser),
-    });
+router.put('/:email', async (req, res) => {
+  const { email = '' } = req.params;
+  const { turn = '' } = req.body;
+
+  let userUpdate = await User.findOneAndUpdate({ email }, { turn: turn - 1 })
+
+  if (userUpdate) {
+    res.send({ ...userUpdate })
   } else {
-    res.status(401).send({ message: 'Invalid Email or Password.' });
+    res.send({
+      message: "Can't not update"
+    })
   }
-});
+})
 
 router.post('/register', async (req, res) => {
   console.log(req.body);
@@ -49,8 +45,8 @@ router.post('/register', async (req, res) => {
     email: req.body.email,
     phone: req.body.phone,
     turn: 2,
-    numPrizes: 0,
   });
+
   const newUser = await user.save();
   if (newUser) {
     res.send({
@@ -58,27 +54,9 @@ router.post('/register', async (req, res) => {
       name: newUser.name,
       email: newUser.email,
       phone: newUser.phone,
-      
-      //isAdmin: newUser.isAdmin,
-      //token: getToken(newUser),
     });
   } else {
     res.status(401).send({ message: 'Invalid User Data.' });
-  }
-});
-
-router.get('/createadmin', async (req, res) => {
-  try {
-    const user = new User({
-      name: 'admin',
-      email: 'admin@example.com',
-      password: '1234',
-      isAdmin: true,
-    });
-    const newUser = await user.save();
-    res.send(newUser);
-  } catch (error) {
-    res.send({ message: error.message });
   }
 });
 

@@ -7,6 +7,7 @@ import userRoute from './routes/userRoute';
 import prizeRoute from './routes/prizeRoute';
 import orderRoute from './routes/orderRoute';
 import categoryRoute from './routes/categoryRoute';
+import cors from 'cors';
 
 const mongodbUrl = config.MONGODB_URL;
 mongoose
@@ -21,8 +22,8 @@ mongoose
   .catch((error) => console.log(error.reason));
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
-//app.use('/api/uploads', uploadRoute);
 app.use('/api/users', userRoute);
 app.use('/api/prize', prizeRoute);
 app.use('/api/orders', orderRoute);
