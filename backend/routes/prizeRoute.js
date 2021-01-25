@@ -33,7 +33,6 @@ router.get('/getUser/:user', async (req, res) => {
     res.status(404).send({ message: 'Prize Not Found.' });
 });
 
-
 router.post('/reg', async (req, res) => {
   console.log(req.body);
   const user = new Prize({
