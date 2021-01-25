@@ -6,32 +6,31 @@ const router = express.Router();
 
 router.get('/type1', async (req, res) => {
 
-  const prize = await Prize.find({ $or:[ {'category':'VN Moving'}, {'category':'HomeAZ'}, {'category':'Godee'} ],available:true });
+  const prize = await Prize.find({ $or: [{ 'category': 'VN Moving' }, { 'category': 'HomeAZ' }, { 'category': 'Godee' }], available: true });
   if (prize)
     res.send(prize)
-  else  
+  else
     res.status(404).send({ message: 'Prize Not Found.' });
-  
+
 });
 
 router.get('/type2', async (req, res) => {
-  const prize = await Prize.find({ available:true });
+  const prize = await Prize.find({ available: true });
   if (prize)
     res.send(prize)
-  else  
+  else
     res.status(404).send({ message: 'Prize Not Found.' });
 });
 
 router.get('/getUser/:user', async (req, res) => {
   const ownerId = req.params.user;
-  if (ownerId)
-  {
-    const prize = await Prize.find({ owner:ownerId });
+  if (ownerId) {
+    const prize = await Prize.find({ owner: ownerId });
     if (prize)
       res.send(prize)
   }
-  else  
-     res.status(404).send({ message: 'Prize Not Found.' });
+  else
+    res.status(404).send({ message: 'Prize Not Found.' });
 });
 
 
@@ -41,10 +40,10 @@ router.post('/reg', async (req, res) => {
     name: req.body.name,
     category: req.body.category,
     area: req.body.area,
-    voucher:req.body.voucher,
+    voucher: req.body.voucher,
     image: req.body.image,
-    owner:"1",
-    detail:"1",
+    owner: "1",
+    detail: "1",
 
   });
   const newUser = await user.save();
@@ -52,7 +51,7 @@ router.post('/reg', async (req, res) => {
     res.send({
       _id: newUser.id,
       name: newUser.name,
-      
+
       //isAdmin: newUser.isAdmin,
       //token: getToken(newUser),
     });
@@ -62,16 +61,22 @@ router.post('/reg', async (req, res) => {
 });
 
 router.put('/update/:id', async (req, res) => {
-  const prizeId = req.params.id;
-  const prize = await Prize.findById(prizeId);
-  if (prize) {
-    prize.available = false;
-    prize.owner = req.body.owner;
-    const updatedPrize = await prize.save();
-    if (updatedPrize) {
+  const category = req.params.id;
+  const prizes = await Prize.find({ category });
+
+  let newPrizes = prizes.filter(prize => prize.available);
+
+  let newPrize = newPrizes[0]
+  console.log("🚀 ~ file: prizeRoute.js ~ line 70 ~ router.put ~ newPrize", newPrize)
+
+  if (newPrize) {
+    let prizeUpdate = await Prize.findOneAndUpdate({ name: newPrize.name }, { owner: req.body.owner, available: false }, { new: true });
+    console.log("🚀 ~ file: prizeRoute.js ~ line 74 ~ router.put ~ prizeUpdate", prizeUpdate)
+
+    if (prizeUpdate) {
       return res
         .status(200)
-        .send({ message: 'Prize Updated', data: updatedPrize });
+        .send({ message: 'Prize Updated', data: prizeUpdate });
     }
   }
   return res.status(500).send({ message: ' Error in Updating.' });
