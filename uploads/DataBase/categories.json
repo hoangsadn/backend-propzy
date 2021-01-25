@@ -1,0 +1,64 @@
+[{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c997"
+  },
+  "category": "VN_Moving",
+  "quantity": 1000,
+  "rate": 2
+},{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c998"
+  },
+  "category": "HomeAZ",
+  "quantity": 1000,
+  "rate": 2
+},{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c999"
+  },
+  "category": "Godee",
+  "quantity": 1000,
+  "rate": 2
+},{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c99a"
+  },
+  "category": "Jupviec",
+  "quantity": 1000,
+  "rate": 2
+},{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c99c"
+  },
+  "category": "Propzy_Care_Special",
+  "quantity": 10,
+  "rate": 2
+},{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c99d"
+  },
+  "category": "posm-1",
+  "quantity": 50,
+  "rate": 2
+},{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c99e"
+  },
+  "category": "posm-2",
+  "quantity": 50,
+  "rate": 2
+},{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c99f"
+  },
+  "category": "posm-3",
+  "quantity": 50,
+  "rate": 2
+},{
+  "_id": {
+    "$oid": "600ce97eb00ff10b5017c9a0"
+  },
+  "category": "posm-4",
+  "quantity": 50,
+  "rate": 2
+}]
