@@ -2,6 +2,7 @@
   "name": "hiden",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "dependencies": {
     "aws-sdk": "^2.702.0",
     "body-parser": "^1.19.0",
@@ -28,7 +29,7 @@
     "nodemon": "^2.0.2"
   },
   "scripts": {
-    "start": "nodemon --watch backend --exec babel-node backend/server.js",
+    "start": "nodemon --experimental-modules --watch backend --exec babel-node backend/server.js",
     "server": "babel-node backend/server.js",
     "build": "rm -rf dist && babel backend -d dist  && cd frontend && npm install && npm run build",
     "heroku-postbuild-x": "npm run build && cd frontend && npm install && npm run build"

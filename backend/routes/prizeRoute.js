@@ -1,6 +1,6 @@
 import express from 'express';
-import Prize from '../models/prizeModel';
-import { isAuth, isAdmin } from '../util';
+import Prize from '../models/prizeModel.js';
+import { isAuth, isAdmin } from '../util.js';
 
 const router = express.Router();
 
@@ -32,6 +32,7 @@ router.get('/getUser/:user', async (req, res) => {
   else
     res.status(404).send({ message: 'Prize Not Found.' });
 });
+
 
 router.post('/reg', async (req, res) => {
   console.log(req.body);

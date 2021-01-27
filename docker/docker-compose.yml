@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+
+  # The Application
+  app:
+    image: ${AWSRepo}/promotion_service:${TAG}
+    container_name: promotion-app-${TAG}
+    working_dir: /var/www
+    restart: unless-stopped
+    #volumes:
+    #  - ./usr/local/tomcat/logs:/usr/local/tomcat/logs
+    #deploy:
+    #  placement:
+    #    constraints: [node.hostname == node1]
+    tty: true
+    ports:
+      - "${PORT}:3000"

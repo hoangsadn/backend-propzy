@@ -1,6 +1,5 @@
 import express from 'express';
-import Order from '../models/orderModel';
-import { isAuth, isAdmin } from '../util';
+import Order from '../models/orderModel.js';
 
 const router = express.Router();
 
@@ -12,6 +11,7 @@ router.post('/', async (req, res) => {
     phone: req.body.phone,
     price: req.body.price,
   });
+
   const newOrder = await order.save();
   if (newOrder) {
     res.send({
@@ -22,9 +22,10 @@ router.post('/', async (req, res) => {
       //token: getToken(newUser),
     });
   } else {
-    res.status(401).send({ message: 'Invalid User Data.' });
+    res.status(200).send({ message: 'Invalid User Data.' });
   }
 });
+
 
 // router.post("/", isAuth, async (req, res) => {
 //   const newOrder = new Order({

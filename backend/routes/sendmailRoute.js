@@ -1,14 +1,33 @@
+import config from '../config.js';
 import express from 'express';
+import nodemailer from 'nodemailer';
 
 const router = express.Router();
 
-var nodemailer = require('nodemailer');
+const configEmailUser = config.SYSTEM_EXTERNAL_EMAIL_USER;
+const configEmailPassword = config.SYSTEM_EXTERNAL_EMAIL_PWD;
+const configEmailFrom = config.SYSTEM_EXTERNAL_EMAIL_FROM;
+
 
 var transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: "smtp.mailgun.org",
+    port: 587,
+    secure: false, // use TLS
     auth: {
-        user: 'propzycamp@gmail.com',
-        pass: 'Admin@123456'
+        user: configEmailUser,
+        pass: configEmailPassword
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+});
+
+// verify connection configuration
+transporter.verify(function(error, success) {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log("Server is ready to take our messages");
     }
 });
 
@@ -17,9 +36,14 @@ router.post('/', (req, res) => {
     const { email, name, user, coupon } = req.body;
 
     let mailOptions = {
-        from: 'propzycamp@gmail.com',
-        to: 'nguyenthanhtrungltv@gmail.com',
+        from: configEmailFrom,
+        to: email,
+        envelope: {
+            from: configEmailFrom,
+            to: email,
+        },
         subject: 'PROPZY COUPON',
+        text: name,
         html: `<!DOCTYPE html>
         <html lang="en">
         
@@ -33,16 +57,16 @@ router.post('/', (req, res) => {
                 Chúc mừng bạn đã hái thành công Lì Xì từ Propzy.
                 <br/>
                 <br/>
-                Propzy xin gửi tặng ${user.name} phần quà đặc biệt mà bạn nhận được từ chương trình, vui lòng xem thêm bên dưới:
+                Propzy xin gửi tặng <font style="color:red;">bạn</font> phần quà đặc biệt mà bạn nhận được từ chương trình, vui lòng xem thêm bên dưới:
             </div>
             <div>
             <br />
-               <div style="color:red;">${coupon.category}: ${name}</div> <br />
-               <div style="color:blue;">${coupon.detail}</div>
+               Mã <font style="color:red;">${coupon.category}</font>: ${name}<br />
+               ${coupon.detail}<br />
             </div>
             <div>
             </br/>
-                Nếu ${user.name} gặp bất kỳ khó khăn nào khi sử dụng Mã ưu đãi, vui lòng tham khảo thông tin dưới đây:
+                Nếu <font style="color:red;">bạn</font> gặp bất kỳ khó khăn nào khi sử dụng Mã ưu đãi, vui lòng tham khảo thông tin dưới đây:
             </div>
             <ul>
                 <li>Sử dụng Coupon của Lalamove: <a href="https://www.lalamove.com/vietnam/hcmc/vi/home?utm_source=propzy">Link</a></li>
@@ -55,15 +79,12 @@ router.post('/', (req, res) => {
                 Trụ sở chính: Tầng 4, toà nhà Flemington, 182 Lê Đại Hành, P.15, Q.11, TP.HCM.
                 <br />30 Trung tâm giao dịch: Xem Trung tâm giao dịch gần bạn
                 <br />Liên hệ trực tiếp hỗ trợ viên của bạn
-                <br />CẦN HỖ TRỢ? GỌI NGAY: *4663
+                <br />CẦN HỖ TRỢ GỌI NGAY: <font style="color:red;">*4663</font>
             </div>
         </body>
         
         </html>`
     };
-
-    mailOptions.text = name;
-    mailOptions.to = email;
 
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -89,8 +110,12 @@ router.post('/type2', (req, res) => {
     }).join('')
 
     let mailOptions = {
-        from: 'propzycamp@gmail.com',
-        to: 'nguyenthanhtrungltv@gmail.com',
+        from: configEmailFrom,
+        to: user.email,
+        envelope: {
+            from: configEmailFrom,
+            to: user.email,
+        },
         subject: 'PROPZY COUPON',
         html: `<!DOCTYPE html>
         <html lang="en">
@@ -128,14 +153,12 @@ router.post('/type2', (req, res) => {
                 Trụ sở chính: Tầng 4, toà nhà Flemington, 182 Lê Đại Hành, P.15, Q.11, TP.HCM.
                 <br />30 Trung tâm giao dịch: Xem Trung tâm giao dịch gần bạn
                 <br />Liên hệ trực tiếp hỗ trợ viên của bạn
-                <br />CẦN HỖ TRỢ? GỌI NGAY: *4663
+                <br />CẦN HỖ TRỢ GỌI NGAY: *4663
             </div>
         </body>
         
         </html>`
     };
-
-    mailOptions.to = user.email;
 
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -149,8 +172,12 @@ router.post('/type3', (req, res) => {
     const { user } = req.body;
 
     let mailOptions = {
-        from: 'propzycamp@gmail.com',
+        from: configEmailFrom,
         to: user.email,
+        envelope: {
+            from: configEmailFrom,
+            to: user.email,
+        },
         subject: 'PROPZY THƯ CẢM ƠN',
         html: `<!DOCTYPE html>
         <html lang="en">
@@ -163,7 +190,7 @@ router.post('/type3', (req, res) => {
             <div>
                 Cảm ơn ${user.name} đã hoàn tất quá trình đăng ký tư vấn thuê nhà tại Propzy. Chúc bạn và người thân sẽ tận hưởng thêm
                 thật
-                nhiều khoảnh khác vui vẻ và hạnh phúc trong năm mới.
+                nhiều khoảnh khắc vui vẻ và hạnh phúc trong năm mới.
             </div>
             <div>
                 *Lưu ý: Khi phát sinh giao dịch trước ngày 30/03/2021. Bạn sẽ nhận được gói ưu đãi Propzy CARE trị giá
@@ -184,7 +211,7 @@ router.post('/type3', (req, res) => {
                 Trụ sở chính: Tầng 4, toà nhà Flemington, 182 Lê Đại Hành, P.15, Q.11, TP.HCM.
                 <br />30 Trung tâm giao dịch: Xem Trung tâm giao dịch gần bạn
                 <br />Liên hệ trực tiếp hỗ trợ viên của bạn
-                <br />CẦN HỖ TRỢ? GỌI NGAY: *4663
+                <br />CẦN HỖ TRỢ GỌI NGAY: *4663
             </div>
         </body>
         

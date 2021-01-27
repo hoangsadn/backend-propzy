@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const orderSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: {
-    type: String, required: true, unique: true, index: true, dropDups: true,
+    type: String, required: true, dropDups: true,
   },
   phone: { type: String, required: true },
   price: {type:String, required:true}

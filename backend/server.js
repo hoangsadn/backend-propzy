@@ -1,14 +1,15 @@
+import cors from 'cors/lib/index.js';
+import config from './config.js';
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import config from './config';
-import userRoute from './routes/userRoute';
-import prizeRoute from './routes/prizeRoute';
-import orderRoute from './routes/orderRoute';
-import categoryRoute from './routes/categoryRoute';
-import sendMailRoute from './routes/sendmailRoute';
-import cors from 'cors';
+import userRoute from './routes/userRoute.js';
+import prizeRoute from './routes/prizeRoute.js';
+import orderRoute from './routes/orderRoute.js';
+import categoryRoute from './routes/categoryRoute.js';
+import sendMailRoute from './routes/sendmailRoute.js';
+
 
 const mongodbUrl = config.MONGODB_URL;
 mongoose
@@ -38,5 +39,5 @@ app.use('/api/sendMail', sendMailRoute);
 // });
 
 app.listen(config.PORT, () => {
-  console.log('Server started at http://localhost:5000');
+  console.log(`Server started at http://localhost:${config.PORT}`);
 });

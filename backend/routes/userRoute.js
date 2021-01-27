@@ -1,6 +1,6 @@
 import express from 'express';
-import User from '../models/userModel';
-import { getToken, isAuth } from '../util';
+import User from '../models/userModel.js';
+import { getToken, isAuth } from '../util.js';
 
 const router = express.Router();
 
@@ -55,17 +55,22 @@ router.post('/register', async (req, res) => {
 			turn: 2,
 		});
 
-		const newUser = await user.save();
-		if (newUser) {
-			res.send({
-				_id: newUser.id,
-				name: newUser.name,
-				email: newUser.email,
-				phone: newUser.phone,
-				turn: 2
-			});
+		const checkUser = await User.find({ email: user.email });
+		if(checkUser.length > 0) {
+			res.status(200).send({ message: 'Email is already registered.' });
 		} else {
-			res.send({ message: 'Invalid User Data.' });
+			const newUser = await user.save();
+			if (newUser) {
+				res.send({
+					_id: newUser.id,
+					name: newUser.name,
+					email: newUser.email,
+					phone: newUser.phone,
+					turn: 2
+				});
+			} else {
+				res.send({ message: 'Invalid User Data.' });
+			}
 		}
 	} catch (error) {
 		res.send({ error })
