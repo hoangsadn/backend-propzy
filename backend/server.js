@@ -8,7 +8,7 @@ import userRoute from './routes/userRoute.js';
 import prizeRoute from './routes/prizeRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import categoryRoute from './routes/categoryRoute.js';
-import sendMailRoute from './routes/sendmailRoute.js';
+//import sendMailRoute from './routes/sendmailRoute.js';
 
 
 const mongodbUrl = config.MONGODB_URL;

@@ -67,11 +67,9 @@ router.put('/update/:id', async (req, res) => {
   let newPrizes = prizes.filter(prize => prize.available);
 
   let newPrize = newPrizes[0]
-  console.log("🚀 ~ file: prizeRoute.js ~ line 70 ~ router.put ~ newPrize", newPrize)
 
   if (newPrize) {
     let prizeUpdate = await Prize.findOneAndUpdate({ name: newPrize.name }, { owner: req.body.owner, available: false }, { new: true });
-    console.log("🚀 ~ file: prizeRoute.js ~ line 74 ~ router.put ~ prizeUpdate", prizeUpdate)
 
     if (prizeUpdate) {
       return res

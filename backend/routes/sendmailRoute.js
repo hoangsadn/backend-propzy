@@ -23,7 +23,7 @@ var transporter = nodemailer.createTransport({
 });
 
 // verify connection configuration
-transporter.verify(function(error, success) {
+transporter.verify(function (error, success) {
     if (error) {
         console.log(error);
     } else {
@@ -97,7 +97,6 @@ router.post('/', (req, res) => {
 
 router.post('/type2', (req, res) => {
     const { user, coupons = [] } = req.body;
-    console.log("user", user)
 
     const parseCounpons = coupons.map(coupon => {
         let string =
