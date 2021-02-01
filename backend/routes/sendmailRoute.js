@@ -54,7 +54,11 @@ router.post('/', (req, res) => {
         <body>
             <h3>Chào ${user.name},</h3>
             <div>
-                Chúc mừng bạn đã hái thành công Lì Xì từ Propzy.
+            Cảm ơn bạn đã tham gia chương trình CÓ NHÀ LÀ CÓ TẾT 2021 của Propzy được diễn ra từ ngày 25/01/2021 đến hết 28/02/2021
+                <br/>
+                <br/>
+                Xin chúc mừng Bạn đã hái thành công Lì Xì – Khai Xuân Đón Lộc. Propzy xin gửi tặng Bạn phần quà đặc biệt mà bạn nhận được từ chương trình, vui lòng xem thêm bên dưới:
+
                 <br/>
                 <br/>
                 Propzy xin gửi tặng <font style="color:red;">bạn</font> phần quà đặc biệt mà bạn nhận được từ chương trình, vui lòng xem thêm bên dưới:

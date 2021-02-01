@@ -30,7 +30,7 @@ app.use('/api/users', userRoute);
 app.use('/api/prize', prizeRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/category', categoryRoute);
-app.use('/api/sendMail', sendMailRoute);
+// app.use('/api/sendMail', sendMailRoute);
 
 //app.use('/uploads', express.static(path.join(__dirname, '/../uploads')));
 //app.use(express.static(path.join(__dirname, '/../frontend/build')));
