@@ -1,6 +1,6 @@
 import express from 'express';
-import Category from '../models/categoryModel';
-import { isAuth, isAdmin } from '../util';
+import Category from '../models/categoryModel.js';
+import { isAuth, isAdmin } from '../util.js';
 
 const router = express.Router();
 

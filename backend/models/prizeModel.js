@@ -5,7 +5,6 @@ const prizeSchema = new mongoose.Schema({
   name: { type: String, required: true },
   category: { type: String, required: true },
   detail: { type: String, required: true },
-  rate: { type: Number, default: 0, required: true },
   voucher: { type: String, required: true },
   image: { type: String, required: true },
   quantity: { type: Number, default: 0, required: true },

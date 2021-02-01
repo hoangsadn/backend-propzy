@@ -1,6 +1,7 @@
 import express from 'express';
-import User from '../models/userModel';
-import { getToken, isAuth } from '../util';
+import User from '../models/userModel.js';
+import { getToken, isAuth } from '../util.js';
+import randomstring from 'randomstring';
 
 const router = express.Router();
 
@@ -10,7 +11,6 @@ router.get('/:email', async (req, res) => {
 		const users = await User.find({ email });
 
 		const user = users[0];
-		console.log("🚀 ~ file: userRoute.js ~ line 12 ~ router.get ~ user", user)
 
 		if (user) {
 			res.send({
@@ -18,7 +18,11 @@ router.get('/:email', async (req, res) => {
 				name: user.name,
 				email: user.email,
 				phone: user.phone,
-				turn: user.turn
+				turn: user.turn,
+				invitelink: user.invitelink,
+				notifications: user.notifications,
+				sharefriend: user.sharefriend,
+
 			});
 		} else {
 			res.send({ message: 'User Not Found' });
@@ -45,27 +49,120 @@ router.put('/:email', async (req, res) => {
 	}
 })
 
+router.put('/updateMission/:mission', async (req, res) => {
+	const { mission = '' } = req.params;
+	let userUpdate = await User.findOne({ email: req.body.email })
+	switch (mission) {
+		case 'like-face':
+			userUpdate.likefb = true;
+			userUpdate.turn = userUpdate.turn + 1;
+
+			break;
+		case 'share':
+			userUpdate.sharefb = true;
+			userUpdate.turn = userUpdate.turn + 1;
+
+			break;
+		case 'subcribe-youtube':
+			userUpdate.subytb = true;
+			userUpdate.turn = userUpdate.turn + 1;
+
+			break;
+		case 'follow-zalo':
+			userUpdate.subzalo = true;
+			userUpdate.turn = userUpdate.turn + 1;
+
+			break;
+	}
+
+	const newUser = await userUpdate.save();
+
+	if (newUser) {
+		res.send(newUser)
+	} else {
+		res.send({
+			message: "Can't not update"
+		})
+	}
+})
+
+router.post('/notification', async (req, res) => {
+	const { userEmail = '', notification = {} } = req.body;
+
+	const user = await User.findOne({ email: userEmail })
+	let notifications = [...user.notifications]
+	notifications.push(notification)
+
+	user.notifications = notifications;
+
+	const newUser = await user.save();
+
+	if (newUser) {
+		res.send(newUser)
+	} else {
+		res.send({
+			message: "Can't create notification"
+		})
+	}
+})
+
 router.post('/register', async (req, res) => {
 	try {
-		console.log(req.body);
 		const user = new User({
 			name: req.body.name,
 			email: req.body.email,
 			phone: req.body.phone,
 			turn: 2,
+			subytb: false,
+			subzalo: false,
+			//inviteby: '',
+			sharefriend: 0,
+			notifications: req.body.notifications,
+			sharefb: false,
+			likefb: false,
+			invitelink: randomstring.generate(12),
 		});
+		const checkUser = await User.find({ email: user.email });
 
-		const newUser = await user.save();
-		if (newUser) {
-			res.send({
-				_id: newUser.id,
-				name: newUser.name,
-				email: newUser.email,
-				phone: newUser.phone,
-				turn: 2
-			});
+		if (checkUser.length > 0) {
+			res.status(200).send({ message: 'Email is already registered.' });
 		} else {
-			res.send({ message: 'Invalid User Data.' });
+			if (req.body.invitelink !== '') {
+				let userUpdate = await User.findOne({ invitelink: req.body.invitelink });
+				let userUpdateNotifications = [...userUpdate.notifications]
+				req.body.userUpdateNotification && userUpdateNotifications.push(req.body.userUpdateNotification)
+
+				if (userUpdate) {
+					if (userUpdate.sharefriend <= 10) {
+						userUpdate.sharefriend = userUpdate.sharefb + 1
+						userUpdate.turn = userUpdate.turn + 1
+						userUpdate.notifications = userUpdateNotifications
+
+						const updatedUser = await userUpdate.save();
+						user.inviteby = userUpdate.email;
+					}
+				}
+			}
+			const newUser = await user.save();
+			if (newUser) {
+				res.send({
+					_id: newUser.id,
+					name: newUser.name,
+					email: newUser.email,
+					phone: newUser.phone,
+					turn: 2,
+					invitelink: newUser.invitelink,
+					subytb: newUser.subytb,
+					subzalo: newUser.subzalo,
+					//inviteby: '',
+					sharefriend: 0,
+					sharefb: newUser.sharefb,
+					notifications: newUser.notifications,
+					likefb: newUser.likefb,
+				});
+			} else {
+				res.send({ message: 'Invalid User Data.' });
+			}
 		}
 	} catch (error) {
 		res.send({ error })
