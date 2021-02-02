@@ -12,6 +12,12 @@ router.get('/:email', async (req, res) => {
 
     const user = users[0];
 
+    if (!user.invitelink || user.invitelink === '' ){
+      user.invitelink = randomstring.generate(12);
+      user.sharefriend = 10;
+      await user.save();
+    }
+
     if (user) {
       res.send({
         _id: user.id,
@@ -21,7 +27,7 @@ router.get('/:email', async (req, res) => {
         turn: user.turn,
         invitelink: user.invitelink,
         notifications: user.notifications,
-        sharefriend: user.sharefriend,
+        sharefriend: user.sharefriend || 10,
         subytb: user.subytb,
         subzalo: user.subzalo,
         // inviteby: '',
@@ -39,13 +45,17 @@ router.get('/:email', async (req, res) => {
 
 router.put('/:email', async (req, res) => {
   const { email = '' } = req.params;
-  const { turn = '' } = req.body;
 
-  const userUpdate = await User.findOneAndUpdate({ email }, { turn: turn - 1 }, {
-    new: true,
-  });
-  if (userUpdate) {
-    res.send(userUpdate);
+  const user = await User.findOne({ email });
+
+  if (user.turn > 0) {
+    user.turn -= 1;
+  }
+
+  const newUser = await user.save();
+
+  if (newUser) {
+    res.send(newUser);
   } else {
     res.send({
       message: "Can't not update",
@@ -114,6 +124,18 @@ router.post('/notification', async (req, res) => {
   } else {
     res.send({
       message: "Can't create notification",
+    });
+  }
+});
+
+router.put('/update/:email', async (req, res) => {
+  try {
+    const {email = ''} = req.params;
+
+      const user = await User.findOneAndUpdate({email}, {...req.body}, {new: true})
+  } catch (error) {
+    res.json({
+      error,
     });
   }
 });
