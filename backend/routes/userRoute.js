@@ -39,7 +39,6 @@ router.put('/:email', async (req, res) => {
 	let userUpdate = await User.findOneAndUpdate({ email }, { turn: turn - 1 }, {
 		new: true
 	})
-
 	if (userUpdate) {
 		res.send(userUpdate)
 	} else {
@@ -112,7 +111,7 @@ router.post('/register', async (req, res) => {
 			name: req.body.name,
 			email: req.body.email,
 			phone: req.body.phone,
-			turn: 2,
+			turn: 3,
 			subytb: false,
 			subzalo: false,
 			//inviteby: '',
