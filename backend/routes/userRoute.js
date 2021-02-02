@@ -53,23 +53,35 @@ router.put('/updateMission/:mission', async (req, res) => {
 	let userUpdate = await User.findOne({ email: req.body.email })
 	switch (mission) {
 		case 'like-face':
-			userUpdate.likefb = true;
-			userUpdate.turn = userUpdate.turn + 1;
+			if (!userUpdate.likefb) {
+				userUpdate.likefb = true;
+				userUpdate.turn = userUpdate.turn + 1;
+			}
+
 
 			break;
 		case 'share':
-			userUpdate.sharefb = true;
-			userUpdate.turn = userUpdate.turn + 1;
+			if (!userUpdate.sharefb) {
+				userUpdate.sharefb = true;
+				userUpdate.turn = userUpdate.turn + 1;
+			}
+
 
 			break;
 		case 'subcribe-youtube':
-			userUpdate.subytb = true;
-			userUpdate.turn = userUpdate.turn + 1;
+			if (!userUpdate.subytb) {
+				userUpdate.subytb = true;
+				userUpdate.turn = userUpdate.turn + 1;
+			}
+
 
 			break;
 		case 'follow-zalo':
-			userUpdate.subzalo = true;
-			userUpdate.turn = userUpdate.turn + 1;
+			if (!userUpdate.subzalo) {
+				userUpdate.subzalo = true;
+				userUpdate.turn = userUpdate.turn + 1;
+			}
+
 
 			break;
 	}

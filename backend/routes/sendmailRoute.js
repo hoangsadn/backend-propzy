@@ -190,8 +190,11 @@ router.post('/type3', (req, res) => {
         </head>
         
         <body>
+            <div> Xin chào ${user.name} <div>
+            <br/>
+            
             <div>
-                Cảm ơn ${user.name} đã hoàn tất quá trình đăng ký tư vấn thuê nhà tại Propzy. Chúc bạn và người thân sẽ tận hưởng thêm
+                Cảm ơn bạn đã hoàn tất quá trình đăng ký tư vấn thuê nhà tại Propzy. Chúc bạn và người thân sẽ tận hưởng thêm
                 thật
                 nhiều khoảnh khắc vui vẻ và hạnh phúc trong năm mới.
             </div>
@@ -201,18 +204,33 @@ router.post('/type3', (req, res) => {
                 VNĐ
             </div>
             <h4>
-                ƯU ĐÃI PROPZY CARE
+                PROPZY CARE - ĐẶC QUYỀN ƯU ĐÃI DÀNH RIÊNG CHO KHÁCH HÀNG PROPZY
+
             </h4>
             <ul>
-                <li>Giảm 500K - VN Moving: dành cho khách đặt dịch vụ chuyển nhà trên app</li>
-                <li>Giảm 600K - Home AZ: dành cho khách đặt mua nệm</li>
-                <li>Tặng 750K - Godee: Tặng 25 chuyến xe miễn phí (30k/chuyến) cho khách hàng đặt xe</li>
-                <li>Giảm 75K - Lalamove: dành cho khách đặt dịch vụ chuyển nhà</li>
-                <li>Giảm 75K - Jupviec.vn: dành cho khách đặt dịch vụ dọn dẹp nhà</li>
+                <li>Vietnam Moving - Giảm 500.000VNĐ cho khách đặt dịch vụ chuyển nhà trên website: vietnammoving.com
+                </li>
+                <li>HomeAZ - Giảm 600.000VNĐ dành cho khách hàng mua nệm tại website homeaz.vn
+                </li>
+                <li>Godee - Quà tặng lên tới 1.000.000VNĐ, gồm 25 chuyến đi miễn phí (40.000VNĐ/chuyến)
+                </li>
+                <li>Lalamove - Giảm 75.000VNĐ cho khách đặt dịch vụ chuyển nhà bằng xe tải trên app Lalamove  </li>
+                <li>JupViec.vn - Giảm 100.000VNĐ cho dịch vụ tổng vệ sinh trên app JupViec.vn</li>
             </ul>
+
+            <br/>
+            <br/>
+            <div>
+            Propzy CARE – Gói dịch vụ chăm sóc khách hàng xuyên suốt trước, trong và cả sau khi giao dịch bất động sản tại Propzy. Với gói dịch vụ Propzy CARE, khách hàng 
+            <b> được chăm sóc và hưởng đặc quyền ưu đãi miễn phí </b>
+             như vận chuyển, dọn nhà, cùng nhiều gói dịch vụ cộng thêm khác từ các đối tác của Propzy. Thảnh thơi Chill Tết - Propzy CARE hết!
+            Nhận ngay gói ưu đãi Propzy CARE trị giá 2.000.000 VNĐ từ ngày 25/01 - 28/02/2021 và hoàn tất giao dịch trước ngày 30/03/2021.   
+
+            </div>
+
             <div>
                 Trụ sở chính: Tầng 4, toà nhà Flemington, 182 Lê Đại Hành, P.15, Q.11, TP.HCM.
-                <br />30 Trung tâm giao dịch: Xem Trung tâm giao dịch gần bạn
+                <br />30 Trung tâm giao dịch: <a href="https://propzy.vn/diem-giao-dich">Xem Trung tâm giao dịch gần bạn</a> 
                 <br />Liên hệ trực tiếp hỗ trợ viên của bạn
                 <br />CẦN HỖ TRỢ GỌI NGAY: *4663
             </div>
