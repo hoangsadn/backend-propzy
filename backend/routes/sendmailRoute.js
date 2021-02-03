@@ -43,8 +43,8 @@ const prizes = [
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'propzycamp@gmail.com',
-        pass: 'Admin@123456',
+        user: 'nltruongvi@gmail.com',
+        pass: 'tjmwjm824594',
     },
 });
 
@@ -58,7 +58,7 @@ router.post('/', (req, res) => {
     }).join('')
 
     let mailOptions = {
-        from: 'propzycamp@gmail.com',
+        from: 'nltruongvi@gmail.com',
         to: 'nguyenthanhtrungltv@gmail.com',
         subject: 'PROPZY COUPON',
         text: name,
@@ -145,7 +145,7 @@ router.post('/type2', (req, res) => {
 
 
     let mailOptions = {
-        from: 'propzycamp@gmail.com',
+        from: 'nltruongvi@gmail.com',
         to: 'nguyenthanhtrungltv@gmail.com',
         subject: 'PROPZY COUPON',
         html: `<!DOCTYPE html>
@@ -206,7 +206,7 @@ router.post('/type3', (req, res) => {
     const { user } = req.body;
 
     let mailOptions = {
-        from: 'propzycamp@gmail.com',
+        from: 'nltruongvi@gmail.com',
         to: 'nguyenthanhtrungltv@gmail.com',
         subject: 'PROPZY COUPON',
         subject: 'PROPZY THƯ CẢM ƠN',
