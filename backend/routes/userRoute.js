@@ -113,19 +113,26 @@ router.post('/notification', async (req, res) => {
 
   const user = await User.findOne({ email: userEmail });
   const notifications = [...user.notifications];
-  notifications.push(notification);
 
-  user.notifications = notifications;
+  if (notification.key === '2' & user.likefb) {
 
-  const newUser = await user.save();
-
-  if (newUser) {
-    res.send(newUser);
-  } else {
-    res.send({
-      message: "Can't create notification",
-    });
   }
+  else {
+    notifications.push(notification);
+
+    user.notifications = notifications;
+
+    const newUser = await user.save();
+
+    if (newUser) {
+      res.send(newUser);
+    } else {
+      res.send({
+        message: "Can't create notification",
+      });
+    }
+  }
+
 });
 
 router.put('/update/:email', async (req, res) => {
@@ -184,7 +191,7 @@ router.post('/register', async (req, res) => {
           name: newUser.name,
           email: newUser.email,
           phone: newUser.phone,
-          turn: 2,
+          turn: 3,
           invitelink: newUser.invitelink,
           subytb: newUser.subytb,
           subzalo: newUser.subzalo,
