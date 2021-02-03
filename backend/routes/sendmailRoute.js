@@ -81,6 +81,7 @@ router.post('/', (req, res) => {
             <div>
             <br />
                <font style="color:red;">${name}</font><br />
+               <div>${prize.detail}</div>
                <ul>
                 ${descriptions}
                </ul>
@@ -134,6 +135,7 @@ router.post('/type2', (req, res) => {
         let string =
             ` <li>
                 <div style="color:red;">${coupon.category}: ${coupon.name}</div>
+                <div>${prize.detail}</div>
                 <ul>
                     ${descriptions}
                 </ul> 

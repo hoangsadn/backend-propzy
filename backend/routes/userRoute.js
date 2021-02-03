@@ -12,9 +12,9 @@ router.get('/:email', async (req, res) => {
 
     const user = users[0];
 
-    if (!user.invitelink || user.invitelink === '' ){
+    if (!user.invitelink || user.invitelink === '') {
       user.invitelink = randomstring.generate(12);
-      user.sharefriend = 10;
+      user.sharefriend = 0;
       await user.save();
     }
 
@@ -27,7 +27,7 @@ router.get('/:email', async (req, res) => {
         turn: user.turn,
         invitelink: user.invitelink,
         notifications: user.notifications,
-        sharefriend: user.sharefriend || 10,
+        sharefriend: user.sharefriend || 0,
         subytb: user.subytb,
         subzalo: user.subzalo,
         // inviteby: '',
@@ -130,9 +130,9 @@ router.post('/notification', async (req, res) => {
 
 router.put('/update/:email', async (req, res) => {
   try {
-    const {email = ''} = req.params;
+    const { email = '' } = req.params;
 
-      const user = await User.findOneAndUpdate({email}, {...req.body}, {new: true})
+    const user = await User.findOneAndUpdate({ email }, { ...req.body }, { new: true })
   } catch (error) {
     res.json({
       error,
