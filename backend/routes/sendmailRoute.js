@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 const prizes = [
     { key: 'VN_Moving', description: ['Thời gian áp dụng: từ 25/01/2021 - 31/03/2021.'], name: 'VN Moving', area: 'HCM (City Wide)', detail: 'Vietnam Moving - Giảm 500.000VNĐ cho khách đặt dịch vụ chuyển nhà trên website: vietnammoving.com' },
