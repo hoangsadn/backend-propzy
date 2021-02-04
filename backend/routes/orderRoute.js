@@ -10,6 +10,7 @@ router.post('/', async (req, res) => {
     email: req.body.email,
     phone: req.body.phone,
     price: req.body.price,
+    demand: req.body.demand
   });
 
   const newOrder = await order.save();
