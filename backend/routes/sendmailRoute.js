@@ -19,10 +19,10 @@ const prizes = [
     key: 'GoDee', description: ['20 chuyến đi cho khách hàng lần đầu tải ứng dụng GoDee: sử dụng trong 2 tuần kể từ khi kích hoạt ứng dụng.', '05 chuyến đi cho tất cả khách hàng của Propzy: áp dụng từ 25/01/2021 - 25/04/2021.'], name: 'Godee', area: 'HCM (City Wide)', detail: 'GoDee - Quà tặng lên tới 1.000.000VNĐ: gồm 25 chuyến đi miễn phí (40.000VNĐ/chuyến)',
   },
   {
-    key: 'Lalamove', description: ['Thời gian áp dụng: hết ngày 30/06/2021.'], name: 'Lalamove', area: 'HCM (City Wide)', detail: 'Lalamove - Giảm 75.000VNĐ cho khách đặt dịch vụ chuyển nhà bằng xe tải trên app Lalamove',
+    key: 'Lalamove', description: ['Thời gian áp dụng: từ 25/01/2021 - 15/03/2021.'], name: 'Lalamove', area: 'HCM (City Wide)', detail: 'Lalamove - Giảm 75.000VNĐ cho khách đặt dịch vụ chuyển nhà bằng xe tải trên app Lalamove',
   },
   {
-    key: 'Jupviec', description: ['Áp dụng tại TP Hồ Chí Minh, Hà Nội, Hải Phòng. Không áp dụng đồng thời với các chương trình khuyến mãi khác.', 'Thời gian áp dụng: Từ 25/01/2021 - 28/02/2021.'], name: 'JupViec.vn', area: 'HCM (City Wide)', detail: 'Giảm 75K cho khách đặt dọn nhà',
+    key: 'Jupviec', description: ['Áp dụng tại TP Hồ Chí Minh, Hà Nội, Hải Phòng. Không áp dụng đồng thời với các chương trình khuyến mãi khác.', 'Thời gian áp dụng: Từ 25/01/2021 - 28/02/2021.'], name: 'JupViec.vn', area: 'HCM (City Wide)', detail: 'Giảm 100.000VNĐ cho dịch vụ tổng vệ sinh trên app JupViec.vn',
   },
   { key: 'Propzy_Care_Special', description: [], detail: 'Combo Propzy Care trị giá 2.000.000' },
   {
@@ -109,7 +109,7 @@ router.post('/', (req, res) => {
             <ul>
                 <li>Sử dụng Ưu đãi của Lalamove: Gọi 0866869175 hoặc truy cập: <a href="https://www.lalamove.com/vietnam/hcmc/vi/home?utm_source=propzy">Link</a></li>
                 <li>Sử dụng Ưu đãi của Vietnam Moving: Gọi 18007011 hoặc truy cập: <a href="https://vietnammoving.com/?utm_source=propzy" >Link</a></li>
-                <li>Sử dụng Ưu đãi của Jupviec.vn: Gọi 19006082 hoặc truy cập:  <a href="https://www.jupviec.vn/?utm_source=propzy">Link</a></li>
+                <li>Sử dụng Ưu đãi của Jupviec.vn: Gọi 19006082 hoặc truy cập:  <a href="https://www.jupviec.vn/huong-dan-dat-dich-vu-tong-ve-sinh-tren-ung-dung-jupviec-d2018.html">Link</a></li>
                 <li>Sử dụng Ưu đãi của GoDee: Gọi 0888411455 hoặc truy cập:  <a href="https://godee.vn/vn?utm_source=propzy">Link</a></li>
                 <li>Sử dụng Ưu đãi của HomeAZ: Gọi 090 173 2989 hoặc truy cập:  <a href="https://homeaz.vn/?utm_source=propzy">Link</a></li>
             </ul>
@@ -191,7 +191,7 @@ router.post('/type2', (req, res) => {
             <ul>
                 <li>Sử dụng Ưu đãi của Lalamove: Gọi 0866869175 hoặc truy cập: <a href="https://www.lalamove.com/vietnam/hcmc/vi/home?utm_source=propzy">Link</a></li>
                 <li>Sử dụng Ưu đãi của Vietnam Moving: Gọi 18007011 hoặc truy cập: <a href="https://vietnammoving.com/?utm_source=propzy" >Link</a></li>
-                <li>Sử dụng Ưu đãi của Jupviec.vn: Gọi 19006082 hoặc truy cập:  <a href="https://www.jupviec.vn/?utm_source=propzy">Link</a></li>
+                <li>Sử dụng Ưu đãi của Jupviec.vn: Gọi 19006082 hoặc truy cập:  <a href="https://www.jupviec.vn/huong-dan-dat-dich-vu-tong-ve-sinh-tren-ung-dung-jupviec-d2018.html">Link</a></li>
                 <li>Sử dụng Ưu đãi của GoDee: Gọi 0888411455 hoặc truy cập:  <a href="https://godee.vn/vn?utm_source=propzy">Link</a></li>
                 <li>Sử dụng Ưu đãi của HomeAZ: Gọi 090 173 2989 hoặc truy cập:  <a href="https://homeaz.vn/?utm_source=propzy">Link</a></li>
             </ul>
@@ -258,7 +258,7 @@ router.post('/type3', (req, res) => {
                 </li>
                 <li>HomeAZ - Giảm 600.000VNĐ dành cho khách hàng mua nệm tại website homeaz.vn
                 </li>
-                <li>Godee - Quà tặng lên tới 1.000.000VNĐ, gồm 25 chuyến đi miễn phí (40.000VNĐ/chuyến)
+                <li>Godee - Quà tặng lên đến 1.000.000VNĐ, miễn phí 5 chuyến đi cho tất cả khách hàng PROPZY và 20 chuyến đi cho khách hàng lần đầu sử dụng GoDee (tối đa 40.000VNĐ/chuyến)
                 </li>
                 <li>Lalamove - Giảm 75.000VNĐ cho khách đặt dịch vụ chuyển nhà bằng xe tải trên app Lalamove  </li>
                 <li>JupViec.vn - Giảm 100.000VNĐ cho dịch vụ tổng vệ sinh trên app JupViec.vn</li>
