@@ -1,13 +1,8 @@
-import config from '../config.js';
 import express from 'express';
-import nodemailer from 'nodemailer';
 
 const router = express.Router();
 
-const configEmailUser = config.SYSTEM_EXTERNAL_EMAIL_USER;
-const configEmailPassword = config.SYSTEM_EXTERNAL_EMAIL_PWD;
-const configEmailFrom = config.SYSTEM_EXTERNAL_EMAIL_FROM;
-
+import nodemailer from 'nodemailer';
 
 const prizes = [
     { key: 'VN_Moving', description: ['Thời gian áp dụng: từ 25/01/2021 - 31/03/2021.'], name: 'VN Moving', area: 'HCM (City Wide)', detail: 'Vietnam Moving - Giảm 500.000VNĐ cho khách đặt dịch vụ chuyển nhà trên website: vietnammoving.com' },
@@ -22,28 +17,36 @@ const prizes = [
     { key: 'posm-4', description: [], name: 'Combo Notebook + Umbrella', detail: 'Gói quà số 4: Sổ tay và Dù ' }
 ]
 
-var transporter = nodemailer.createTransport({
-    host: "smtp.mailgun.org",
-    port: 587,
-    secure: false, // use TLS
+// var transporter = nodemailer.createTransport({
+//     host: "smtp.mailgun.org",
+//     port: 587,
+//     secure: false, // use TLS
+//     auth: {
+//         user: configEmailUser,
+//         pass: configEmailPassword
+//     },
+//     tls: {
+//         rejectUnauthorized: false
+//     }
+// });
+
+// // verify connection configuration
+// transporter.verify(function (error, success) {
+//     if (error) {
+//         console.log(error);
+//     } else {
+//         console.log("Server is ready to take our messages");
+//     }
+// });
+
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-        user: configEmailUser,
-        pass: configEmailPassword
+        user: 'nltruongvi@gmail.com',
+        pass: 'tjmwjm824594',
     },
-    tls: {
-        rejectUnauthorized: false
-    }
 });
-
-// verify connection configuration
-transporter.verify(function (error, success) {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log("Server is ready to take our messages");
-    }
-});
-
 
 router.post('/', (req, res) => {
     const { email, name, user, coupon } = req.body;
@@ -55,12 +58,8 @@ router.post('/', (req, res) => {
     }).join('')
 
     let mailOptions = {
-        from: configEmailFrom,
-        to: email,
-        envelope: {
-            from: configEmailFrom,
-            to: email,
-        },
+        from: 'nltruongvi@gmail.com',
+        to: 'nguyenthanhtrungltv@gmail.com',
         subject: 'PROPZY COUPON',
         text: name,
         html: `<!DOCTYPE html>
@@ -146,12 +145,8 @@ router.post('/type2', (req, res) => {
 
 
     let mailOptions = {
-        from: configEmailFrom,
-        to: user.email,
-        envelope: {
-            from: configEmailFrom,
-            to: user.email,
-        },
+        from: 'nltruongvi@gmail.com',
+        to: 'nguyenthanhtrungltv@gmail.com',
         subject: 'PROPZY COUPON',
         html: `<!DOCTYPE html>
         <html lang="en">
@@ -211,12 +206,9 @@ router.post('/type3', (req, res) => {
     const { user } = req.body;
 
     let mailOptions = {
-        from: configEmailFrom,
-        to: user.email,
-        envelope: {
-            from: configEmailFrom,
-            to: user.email,
-        },
+        from: 'nltruongvi@gmail.com',
+        to: 'nguyenthanhtrungltv@gmail.com',
+        subject: 'PROPZY COUPON',
         subject: 'PROPZY THƯ CẢM ƠN',
         html: `<!DOCTYPE html>
         <html lang="en">
