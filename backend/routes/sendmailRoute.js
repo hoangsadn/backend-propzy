@@ -1,68 +1,85 @@
 import express from 'express';
+import nodemailer from 'nodemailer';
+import config from '../config.js';
 
 const router = express.Router();
 
-import nodemailer from 'nodemailer';
+const configEmailUser = config.SYSTEM_EXTERNAL_EMAIL_USER;
+const configEmailPassword = config.SYSTEM_EXTERNAL_EMAIL_PWD;
+const configEmailFrom = config.SYSTEM_EXTERNAL_EMAIL_FROM;
 
 const prizes = [
-    { key: 'VN_Moving', description: ['Thời gian áp dụng: từ 25/01/2021 - 31/03/2021.'], name: 'VN Moving', area: 'HCM (City Wide)', detail: 'Vietnam Moving - Giảm 500.000VNĐ cho khách đặt dịch vụ chuyển nhà trên website: vietnammoving.com' },
-    { key: 'HomeAZ', description: ['Thời gian áp dụng: hết ngày 30/06/2021.'], name: 'HomeAZ', area: 'HCM (City Wide)', detail: 'HomeAZ - Giảm 600.000VNĐ dành cho khách hàng mua nệm có giá từ 5 triệu trên website <a>https://homeaz.vn/</a>' },
-    { key: 'GoDee', description: ['20 chuyến đi cho khách hàng lần đầu tải ứng dụng GoDee: sử dụng trong 2 tuần kể từ khi kích hoạt ứng dụng.', '05 chuyến đi cho tất cả khách hàng của Propzy: áp dụng từ 25/01/2021 - 25/04/2021.'], name: 'Godee', area: 'HCM (City Wide)', detail: 'GoDee - Quà tặng lên tới 1.000.000VNĐ: gồm 25 chuyến đi miễn phí (40.000VNĐ/chuyến)' },
-    { key: 'Lalamove', description: ['Thời gian áp dụng: hết ngày 30/06/2021.'], name: 'Lalamove', area: 'HCM (City Wide)', detail: 'Lalamove - Giảm 75.000VNĐ cho khách đặt dịch vụ chuyển nhà bằng xe tải trên app Lalamove' },
-    { key: 'Jupviec', description: ['Áp dụng tại TP Hồ Chí Minh, Hà Nội, Hải Phòng. Không áp dụng đồng thời với các chương trình khuyến mãi khác.', 'Thời gian áp dụng: Từ 25/01/2021 - 28/02/2021.'], name: 'JupViec.vn', area: 'HCM (City Wide)', detail: 'Giảm 75K cho khách đặt dọn nhà' },
-    { key: 'Propzy_Care_Special', description: [], detail: 'Combo Propzy Care trị giá 2.000.000' },
-    { key: 'posm-1', description: [], name: 'Combo Shopping bag + Helmet', detail: 'Gói quà số 1: Túi giữ nhiệt và Mũ bảo hiểm' },
-    { key: 'posm-2', description: [], name: 'Combo Canvas bag + Tumbler', detail: 'Gói quà số 2: Túi vải canvas và Bình giữ nhiệt' },
-    { key: 'posm-3', description: [], name: 'Combo Shopping bag + Raincoat', detail: 'Gói quà số 3: Túi giữ nhiệt và Áo mưa' },
-    { key: 'posm-4', description: [], name: 'Combo Notebook + Umbrella', detail: 'Gói quà số 4: Sổ tay và Dù ' }
-]
-
-// var transporter = nodemailer.createTransport({
-//     host: "smtp.mailgun.org",
-//     port: 587,
-//     secure: false, // use TLS
-//     auth: {
-//         user: configEmailUser,
-//         pass: configEmailPassword
-//     },
-//     tls: {
-//         rejectUnauthorized: false
-//     }
-// });
-
-// // verify connection configuration
-// transporter.verify(function (error, success) {
-//     if (error) {
-//         console.log(error);
-//     } else {
-//         console.log("Server is ready to take our messages");
-//     }
-// });
-
+  {
+    key: 'VN_Moving', description: ['Thời gian áp dụng: từ 25/01/2021 - 31/03/2021.'], name: 'VN Moving', area: 'HCM (City Wide)', detail: 'Vietnam Moving - Giảm 500.000VNĐ cho khách đặt dịch vụ chuyển nhà trên website: vietnammoving.com',
+  },
+  {
+    key: 'HomeAZ', description: ['Thời gian áp dụng: hết ngày 30/06/2021.'], name: 'HomeAZ', area: 'HCM (City Wide)', detail: 'HomeAZ - Giảm 600.000VNĐ dành cho khách hàng mua nệm có giá từ 5 triệu trên website <a>https://homeaz.vn/</a>',
+  },
+  {
+    key: 'GoDee', description: ['20 chuyến đi cho khách hàng lần đầu tải ứng dụng GoDee: sử dụng trong 2 tuần kể từ khi kích hoạt ứng dụng.', '05 chuyến đi cho tất cả khách hàng của Propzy: áp dụng từ 25/01/2021 - 25/04/2021.'], name: 'Godee', area: 'HCM (City Wide)', detail: 'GoDee - Quà tặng lên tới 1.000.000VNĐ: gồm 25 chuyến đi miễn phí (40.000VNĐ/chuyến)',
+  },
+  {
+    key: 'Lalamove', description: ['Thời gian áp dụng: hết ngày 30/06/2021.'], name: 'Lalamove', area: 'HCM (City Wide)', detail: 'Lalamove - Giảm 75.000VNĐ cho khách đặt dịch vụ chuyển nhà bằng xe tải trên app Lalamove',
+  },
+  {
+    key: 'Jupviec', description: ['Áp dụng tại TP Hồ Chí Minh, Hà Nội, Hải Phòng. Không áp dụng đồng thời với các chương trình khuyến mãi khác.', 'Thời gian áp dụng: Từ 25/01/2021 - 28/02/2021.'], name: 'JupViec.vn', area: 'HCM (City Wide)', detail: 'Giảm 75K cho khách đặt dọn nhà',
+  },
+  { key: 'Propzy_Care_Special', description: [], detail: 'Combo Propzy Care trị giá 2.000.000' },
+  {
+    key: 'posm-1', description: [], name: 'Combo Shopping bag + Helmet', detail: 'Gói quà số 1: Túi giữ nhiệt và Mũ bảo hiểm',
+  },
+  {
+    key: 'posm-2', description: [], name: 'Combo Canvas bag + Tumbler', detail: 'Gói quà số 2: Túi vải canvas và Bình giữ nhiệt',
+  },
+  {
+    key: 'posm-3', description: [], name: 'Combo Shopping bag + Raincoat', detail: 'Gói quà số 3: Túi giữ nhiệt và Áo mưa',
+  },
+  {
+    key: 'posm-4', description: [], name: 'Combo Notebook + Umbrella', detail: 'Gói quà số 4: Sổ tay và Dù ',
+  },
+];
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'nltruongvi@gmail.com',
-        pass: 'tjmwjm824594',
-    },
+  host: 'smtp.mailgun.org',
+  port: 587,
+  secure: false, // use TLS
+  auth: {
+    user: configEmailUser,
+    pass: configEmailPassword,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
+// verify connection configuration
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Server is ready to take our messages');
+  }
 });
 
 router.post('/', (req, res) => {
-    const { email, name, user, coupon } = req.body;
+  const {
+    email, name, user, coupon,
+  } = req.body;
 
-    const prize = prizes.find(prize => prize.key === coupon.category);
+  const prize = prizes.find((prize) => prize.key === coupon.category);
 
-    let descriptions = prize.description.map(item => {
-        return `<li>${item}</li>`
-    }).join('')
+  const descriptions = prize.description.map((item) => `<li>${item}</li>`).join('');
 
-    let mailOptions = {
-        from: 'nltruongvi@gmail.com',
-        to: 'nguyenthanhtrungltv@gmail.com',
-        subject: 'PROPZY COUPON',
-        text: name,
-        html: `<!DOCTYPE html>
+  const mailOptions = {
+    from: configEmailFrom,
+    to: email,
+    envelope: {
+      from: configEmailFrom,
+      to: email,
+    },
+    subject: 'PROPZY COUPON',
+    text: name,
+    html: `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -107,48 +124,46 @@ router.post('/', (req, res) => {
             </div>
         </body>
         
-        </html>`
-    };
+        </html>`,
+  };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            res.send({ "message": 'success' });
-        }
-    })
-})
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.send({ message: 'success' });
+    }
+  });
+});
 
 router.post('/type2', (req, res) => {
-    const { user, coupons = [] } = req.body;
+  const { user, coupons = [] } = req.body;
 
-    const parseCounpons = coupons.map(coupon => {
-        let prize = prizes.find(sprize => sprize.key === coupon.category);
+  const parseCounpons = coupons.map((coupon) => {
+    const prize = prizes.find((sprize) => sprize.key === coupon.category);
 
+    const descriptions = prize.description.map((item) => `<li>${item}</li>`).join('');
 
-        let descriptions = prize.description.map(item => {
-            return `<li>${item}</li>`
-        }).join('')
-
-
-        let string =
-            ` <li>
+    const string = ` <li>
                 <div style="color:red;">${coupon.category}: ${coupon.name}</div>
                 <div>${prize.detail}</div>
                 <ul>
                     ${descriptions}
                 </ul> 
-            </li>`
+            </li>`;
 
-        return string
-    }).join('')
+    return string;
+  }).join('');
 
-
-    let mailOptions = {
-        from: 'nltruongvi@gmail.com',
-        to: 'nguyenthanhtrungltv@gmail.com',
-        subject: 'PROPZY COUPON',
-        html: `<!DOCTYPE html>
+  const mailOptions = {
+    from: configEmailFrom,
+    to: user.email,
+    envelope: {
+      from: configEmailFrom,
+      to: user.email,
+    },
+    subject: 'PROPZY COUPON',
+    html: `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -191,26 +206,29 @@ router.post('/type2', (req, res) => {
             </div>
         </body>
         
-        </html>`
-    };
+        </html>`,
+  };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            res.send({ "message": 'success' });
-        }
-    })
-})
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.send({ message: 'success' });
+    }
+  });
+});
 router.post('/type3', (req, res) => {
-    const { user } = req.body;
+  const { user } = req.body;
 
-    let mailOptions = {
-        from: 'nltruongvi@gmail.com',
-        to: 'nguyenthanhtrungltv@gmail.com',
-        subject: 'PROPZY COUPON',
-        subject: 'PROPZY THƯ CẢM ƠN',
-        html: `<!DOCTYPE html>
+  const mailOptions = {
+    from: configEmailFrom,
+    to: user.email,
+    envelope: {
+      from: configEmailFrom,
+      to: user.email,
+    },
+    subject: 'PROPZY THƯ CẢM ƠN',
+    html: `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -264,16 +282,16 @@ router.post('/type3', (req, res) => {
             </div>
         </body>
         
-        </html>`
-    };
+        </html>`,
+  };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            res.send({ "message": 'success' });
-        }
-    })
-})
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.send({ message: 'success' });
+    }
+  });
+});
 
 export default router;
