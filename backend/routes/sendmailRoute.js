@@ -195,8 +195,9 @@ router.post('/type2', (req, res) => {
                 <li>Sử dụng Ưu đãi của GoDee: Gọi 0888411455 hoặc truy cập:  <a href="https://godee.vn/vn?utm_source=propzy">Link</a></li>
                 <li>Sử dụng Ưu đãi của HomeAZ: Gọi 090 173 2989 hoặc truy cập:  <a href="https://homeaz.vn/?utm_source=propzy">Link</a></li>
             </ul>
+            </br/>
+            <p>Nhận ngay gói ưu đãi Propzy CARE trị giá 2.000.000 VNĐ từ ngày 25/01 - 28/02/2021 và hoàn tất giao dịch trước ngày 30/03/2021.</p>
             <p>Propzy CARE – Gói dịch vụ chăm sóc khách hàng xuyên suốt trước, trong và cả sau khi giao dịch bất động sản tại Propzy. Với gói dịch vụ Propzy CARE, khách hàng <strong>được chăm sóc và hưởng đặc quyền ưu đãi miễn phí </strong> như vận chuyển, dọn nhà, cùng nhiều gói dịch vụ cộng thêm khác từ các đối tác của Propzy. Thảnh thơi Chill Tết - Propzy CARE hết!
-            Nhận ngay gói ưu đãi Propzy CARE trị giá 2.000.000 VNĐ từ ngày 25/01 - 28/02/2021 và hoàn tất giao dịch trước ngày 30/03/2021.       
             </p>
             <div>
                 Trụ sở chính: Tầng 4, toà nhà Flemington, 182 Lê Đại Hành, P.15, Q.11, TP.HCM.
@@ -270,7 +271,6 @@ router.post('/type3', (req, res) => {
             Propzy CARE – Gói dịch vụ chăm sóc khách hàng xuyên suốt trước, trong và cả sau khi giao dịch bất động sản tại Propzy. Với gói dịch vụ Propzy CARE, khách hàng 
             <b> được chăm sóc và hưởng đặc quyền ưu đãi miễn phí </b>
              như vận chuyển, dọn nhà, cùng nhiều gói dịch vụ cộng thêm khác từ các đối tác của Propzy. Thảnh thơi Chill Tết - Propzy CARE hết!
-            Nhận ngay gói ưu đãi Propzy CARE trị giá 2.000.000 VNĐ từ ngày 25/01 - 28/02/2021 và hoàn tất giao dịch trước ngày 30/03/2021.   
 
             </div>
 
